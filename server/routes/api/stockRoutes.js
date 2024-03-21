@@ -1,10 +1,12 @@
 const router = require('express').Router();
 const {
-    addItem
+    addItem,
+    getItems
 } = require('../../controllers/stockController');
 
 // /api/stock/items
 router.route('/items')
-    .post(addItem);
+    .post(addItem)
+    .get(getItems)
 
 module.exports = router;

@@ -9,5 +9,14 @@ module.exports = {
         console.log(error);
         res.status(500).json(error);
        } 
+    },
+    async getItems(req, res) {
+        try {
+            const items = await Item.find().populate('locations');
+            res.status(200).json(items);
+        } catch (error) {
+            console.log(error);
+            res.status(500).json(error);
+        }
     }
 };
