@@ -27,5 +27,14 @@ module.exports = {
             console.log(error);
             res.status(500).json(error);
         }
+    },
+    async getLocations(req, res) {
+        try {
+            const locations = await Location.find().populate('stock');
+            res.status(200).json(locations);
+        } catch (error) {
+            console.log(error);
+            res.status(500).json(error);
+        }
     }
 };
