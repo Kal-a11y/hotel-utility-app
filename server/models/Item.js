@@ -8,7 +8,15 @@ const itemSchema = new Schema(
             trim: true
         },
         totalCount: Number,
-        minCount: Number,
+        minCount: {
+            type: Number,
+            default: 1,
+            required: true
+        },
+        countBy: {
+            type: String,
+            required: true,
+        },
         locations: [
             {
                 type: Schema.Types.ObjectId,
