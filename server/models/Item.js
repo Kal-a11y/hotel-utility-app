@@ -5,16 +5,26 @@ const itemSchema = new Schema(
         name: {
             type: String,
             required: true,
+            unique: true,
             trim: true
         },
         totalCount: Number,
-        minCount: Number,
-        locations: [
-            {
+        minCount: {
+            type: Number,
+            default: 1,
+            required: true
+        },
+        countBy: {
+            type: String,
+            default: 'boxes'
+        },
+        locations: [{
+            locationId: {
                 type: Schema.Types.ObjectId,
                 ref: 'location'
-            }
-        ]
+            },
+            count: Number
+        }],
     },
     { toJSON: { virtuals: true }, id: false }
 );
