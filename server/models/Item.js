@@ -16,14 +16,15 @@ const itemSchema = new Schema(
         },
         countBy: {
             type: String,
-            required: true,
+            default: 'boxes'
         },
-        locations: [
-            {
+        locations: [{
+            locationId: {
                 type: Schema.Types.ObjectId,
                 ref: 'location'
-            }
-        ]
+            },
+            count: Number
+        }],
     },
     { toJSON: { virtuals: true }, id: false }
 );
