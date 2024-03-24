@@ -6,12 +6,13 @@ const locationSchema = new Schema({
         required: true,
         trim: true
     },
-    stock: [
-        {
+    stock: [{
+        item: {
             type: Schema.Types.ObjectId,
             ref: 'item'
-        }
-    ],
+        },
+        count: Number
+    }],
     lastCount: Date,
     nextCount: Date,
 });
