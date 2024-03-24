@@ -1,13 +1,21 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
+import StockNavbar from './components/StockNavbar.jsx'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import './index.css'
+// import './index.css'
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
+    children: [
+      {
+        path: '/stock/:stockCategory',
+        element: <StockNavbar />,
+      }
+  
+    ]
   },
 ]);
 
