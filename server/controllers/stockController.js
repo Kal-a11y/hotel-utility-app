@@ -21,7 +21,7 @@ module.exports = {
     },
     async getItems(req, res) {
         try {
-            const items = await Item.find().select('-locations');
+            const items = await Item.find();
             res.status(200).json(items);
         } catch (error) {
             console.log(error);
@@ -48,18 +48,29 @@ module.exports = {
                 const { itemId, count } = stockItem;
 
                 let item = await Item.findById(itemId);
-                
+
                 if (!item) {
                     res.status(404).json({ message: `Item with ID ${itemId} not found` });
+                    return
                 }
 
-                await Item.findByIdAndUpdate(itemId, {$set: {locations: {_id: locationId, count}}}, {new: true}); 
+                const locationIndex = item.locations.findIndex(location => location._id.toString() === locationId);
 
-                stockItems.push({item: itemId, count});
+
+                if (locationIndex !== -1) {
+                    item.locations[locationIndex].count = count;
+                } else {
+                    item.locations.push({ _id: locationId, count: count });
+                }
+
+                await item.save();
+
+                stockItems.push({ item: itemId, count });
             }
+
+            const updatedLocation = await Location.findOneAndUpdate({_id: locationId}, { $set: { stock: stockItems, lastCount: new Date() } }, { new: true }).populate({ path: 'stock.item', select: '-locations -minCount -__v -totalCount' }).exec();
+            await updatedLocation.updateTotalCount();
             
-            const updatedLocation = await Location.findByIdAndUpdate(locationId, {$set: {stock: stockItems, lastCount: new Date()}}, {new: true}).populate({path: 'stock.item', select: '-locations -minCount -__v'});
-            console.log(updatedLocation);
             res.status(200).json(updatedLocation);
         } catch (error) {
             console.log(error);
