@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import ItemStockPage from './pages/ItemStockPage.jsx'
+import LocationStockPage from './pages/LocationStockPage.jsx'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 // import './index.css'
 
@@ -13,6 +14,10 @@ const router = createBrowserRouter([
       {
         path: '/stock/items',
         element: <ItemStockPage />,
+      },
+      {
+        path: '/stock/locations',
+        element: <LocationStockPage />,
       }
   
     ]
