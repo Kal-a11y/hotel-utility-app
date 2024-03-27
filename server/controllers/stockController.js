@@ -21,7 +21,36 @@ module.exports = {
     },
     async getItems(req, res) {
         try {
-            const items = await Item.find();
+            const items = await Item.aggregate([
+                {
+                    $lookup: {
+                        from: 'locations',
+                        localField: 'locations.locationId',
+                        foreignField: 'id',
+                        as: 'locationData'
+                    }
+                },
+                {
+                    $addFields: {
+                        "locations": {
+                            $map: {
+                              input: { $range: [0, { $size: "$locationData" }] },
+                              as: "index",
+                              in: {
+                                name: { $arrayElemAt: ["$locationData.name", "$$index"] },
+                                count: { $arrayElemAt: ["$locations.count", "$$index"] }
+                              }
+                            }
+                          }
+                    }
+                },
+                {
+                    $project: {
+                        locationData: 0,
+                        __v: 0
+                    }
+                }
+            ]);
             res.status(200).json(items);
         } catch (error) {
             console.log(error);
