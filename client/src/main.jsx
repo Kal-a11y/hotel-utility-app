@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
-import StockNavbar from './components/StockNavbar.jsx'
+import ItemStockPage from './pages/ItemStockPage.jsx'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 // import './index.css'
 
@@ -11,8 +11,8 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       {
-        path: '/stock/:stockCategory',
-        element: <StockNavbar />,
+        path: '/stock/items',
+        element: <ItemStockPage />,
       }
   
     ]
