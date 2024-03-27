@@ -59,7 +59,8 @@ module.exports = {
     },
     async getLocations(req, res) {
         try {
-            const locations = await Location.find().populate('stock');
+            const locations = await Location.find()
+                .populate('stock.item')
             res.status(200).json(locations);
         } catch (error) {
             console.log(error);
