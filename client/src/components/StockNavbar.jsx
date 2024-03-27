@@ -1,6 +1,9 @@
-import { useParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+
 const StockNavbar = () => {
-    const { stockCategory } = useParams();
+    const location = useLocation();
+    const navigate = useNavigate();
+    
     return (
         <>
             <button onClick={() => navigate('/stock/locations')}>Locations</button>
