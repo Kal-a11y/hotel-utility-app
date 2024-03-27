@@ -66,6 +66,16 @@ module.exports = {
             res.status(500).json(error);
         }
     },
+    async getSingleLocation(req, res) {
+        try {
+            const { locationId } = req.params;
+            const location = await Location.findById(locationId);
+            res.status(200).json(location);
+        } catch (error) {
+            console.log(error);
+            res.status(500).json(error);
+        }
+    },
     async stockCount(req, res) {
         try {
             const { locationId } = req.params;
