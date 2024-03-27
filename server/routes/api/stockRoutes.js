@@ -4,11 +4,13 @@ const {
     getItems,
     addLocation,
     getLocations,
-    stockCount
+    stockCount,
+    getSingleLocation
 } = require('../../controllers/stockController');
 
-router.route('/:locationId')
-    .put(stockCount);
+router.route('/location/:locationId')
+    .put(stockCount)
+    .get(getSingleLocation);
 
 // /api/stock/items
 router.route('/items')
