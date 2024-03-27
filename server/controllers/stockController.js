@@ -68,9 +68,9 @@ module.exports = {
                 stockItems.push({ item: itemId, count });
             }
 
-            const updatedLocation = await Location.findOneAndUpdate({_id: locationId}, { $set: { stock: stockItems, lastCount: new Date() } }, { new: true }).populate({ path: 'stock.item', select: '-locations -minCount -__v -totalCount' }).exec();
+            const updatedLocation = await Location.findOneAndUpdate({ _id: locationId }, { $set: { stock: stockItems, lastCount: new Date() } }, { new: true }).populate({ path: 'stock.item', select: '-locations -minCount -__v -totalCount' }).exec();
             await updatedLocation.updateTotalCount();
-            
+
             res.status(200).json(updatedLocation);
         } catch (error) {
             console.log(error);
