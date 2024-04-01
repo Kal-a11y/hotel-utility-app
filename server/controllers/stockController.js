@@ -3,8 +3,14 @@ const { Item, Location } = require('../models');
 module.exports = {
     async addItem(req, res) {
         try {
+            const existingItem = await Item.findOne({ name: req.body.name});
+
+            if (existingItem){ 
+                return res.status(400).json({ message: `${req.body.name} already exists` });
+            }
+
             const item = await Item.create(req.body);
-            res.status(200).json(item);
+            res.status(200).json({...item, message: 'Item added successfully'});
         } catch (error) {
             console.log(error);
             res.status(500).json(error);
