@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+import { ADD_LOCATION } from '../utils/API';
 
 const AddStockLocation = () => {
-    const [locationFormState, setLocationFormState] = useState({name: '',});
+    const [locationFormState, setLocationFormState] = useState({ name: '', });
 
     const handleInputChange = (event) => {
         setLocationFormState({
@@ -10,24 +11,30 @@ const AddStockLocation = () => {
         });
     };
 
-    const handleFormSubmit = (event) => {
+    const handleFormSubmit = async (event) => {
         event.preventDefault();
-        console.log(locationFormState.name);
+        const response = await ADD_LOCATION(locationFormState);
+        const data = await response.json();
+        document.getElementById('status-text').textContent = data.message;
+        setLocationFormState({ name: '' });
     };
 
     return (
-        <form onSubmit={handleFormSubmit}>
-            <label>
-                Location Name:
-                <input
-                    type="text"
-                    name="name"
-                    value={locationFormState.name}
-                    onChange={handleInputChange}
-                />
-            </label>
-            <button type="submit">Submit</button>
-        </form>
+        <div>
+            <form onSubmit={handleFormSubmit}>
+                <label>
+                    Location Name:
+                    <input
+                        type="text"
+                        name="name"
+                        value={locationFormState.name}
+                        onChange={handleInputChange}
+                    />
+                </label>
+                <button type="submit">Submit</button>
+            </form>
+            <p id="status-text"></p>
+        </div>
     );
 };
 
