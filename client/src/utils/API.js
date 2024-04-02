@@ -23,3 +23,17 @@ export const ADD_LOCATION = (location) => {
         body: JSON.stringify(location)
     });
 }
+
+export const GET_SINGLE_LOCATION = (locationId) => {
+    return fetch(`/api/stock/location/${locationId}`);
+}
+
+export const COUNT_INVENTORY = (stock, locationId) => {
+    return fetch(`/api/stock/location/${locationId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({stock})
+    });
+}

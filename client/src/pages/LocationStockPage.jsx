@@ -1,6 +1,7 @@
 import { GET_LOCATIONS } from '../utils/API';
 import { useState, useEffect } from 'react';
 import StockNavbar from '../components/StockNavbar';
+import { Link } from 'react-router-dom';
 
 const LocationStockPage = () => {
     const [stockData, setstockData] = useState([]);
@@ -34,7 +35,7 @@ const LocationStockPage = () => {
                     stockData.map(location => {
                         return (
                             <div>
-                                <h3 key={location._id}>{location.name}</h3>
+                                <h3 key={location._id} id={location._id}>{location.name} <Link to={`/stock/count/${location._id}`}>✏️</Link></h3>
                                 {location.stock.map(item => {
                                     return (
                                         <p key={item.item._id}>{item.item.name}: {item.count} {item.item.countBy}</p>

@@ -5,6 +5,7 @@ import ItemStockPage from './pages/ItemStockPage.jsx'
 import LocationStockPage from './pages/LocationStockPage.jsx'
 import AddStockItem from './pages/AddStockItem.jsx'
 import AddStockLocation from './pages/AddStockLocation.jsx'
+import CountLocationInventory from './pages/CountLocationInventory.jsx'
 import Home from './pages/Home.jsx'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 // import './index.css'
@@ -34,6 +35,9 @@ const router = createBrowserRouter([
         path: '/stock/addLocation',
         element: <AddStockLocation />,
       },
+      {
+        path: '/stock/count/:locationId',
+        element: <CountLocationInventory />,}
   
     ]
   },
