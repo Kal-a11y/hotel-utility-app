@@ -1,5 +1,6 @@
 import { ADD_ITEM } from "../utils/API";
 import { useState } from "react";
+import StockNavbar from "../components/StockNavbar";
 const AddStockItem = () => {
     const [itemFormState, setItemFormState] = useState({name: '', countBy: '', minCount: ''});
     const handleFormSubmit = async (event) => {
@@ -21,6 +22,7 @@ const AddStockItem = () => {
     };
     return (
         <div>
+            <StockNavbar />
             <h1>Add Stock Item</h1>
             <form onSubmit={handleFormSubmit}>
                 <label htmlFor="name">Item name:</label>

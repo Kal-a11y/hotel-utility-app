@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ADD_LOCATION } from '../utils/API';
+import StockNavbar from '../components/StockNavbar';
 
 const AddStockLocation = () => {
     const [locationFormState, setLocationFormState] = useState({ name: '', });
@@ -21,6 +22,7 @@ const AddStockLocation = () => {
 
     return (
         <div>
+            <StockNavbar />
             <form onSubmit={handleFormSubmit}>
                 <label>
                     Location Name:
