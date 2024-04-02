@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { COUNT_INVENTORY, GET_ITEMS, GET_SINGLE_LOCATION } from '../utils/API';
 
 const CountLocationInventory = () => {
@@ -7,6 +7,7 @@ const CountLocationInventory = () => {
     const [formState, setFormState] = useState([]);
     const [itemData, setItemData] = useState(null);
     const [locationTitle, setLocationTitle] = useState('');
+    const navigate = useNavigate();
     let stockLength;
 
     useEffect(() => {
@@ -61,6 +62,8 @@ const CountLocationInventory = () => {
         try {
             const cleanedData = formState.filter(item => item.count > 0);
             await COUNT_INVENTORY(cleanedData, locationId);
+
+            navigate('/stock/locations');
         } catch (error) {
             console.error(error);
         }
