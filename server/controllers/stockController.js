@@ -18,8 +18,13 @@ module.exports = {
     },
     async addLocation(req, res) {
         try {
+            const existingLocation = await Location.findOne({ name: req.body.name });
+
+            if (existingLocation) {
+                return res.status(400).json({ message: `${req.body.name} already exists` });
+            }
             const location = await Location.create(req.body);
-            res.status(200).json(location);
+            res.status(200).json({...location, message: 'Location added successfully'});
         } catch (error) {
             console.log(error);
             res.status(500).json(error);
