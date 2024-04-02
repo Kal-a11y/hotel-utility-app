@@ -34,7 +34,7 @@ const LocationStockPage = () => {
                     stockData.map(location => {
                         return (
                             <div>
-                                <h3 key={location._id}>{location.name}</h3>
+                                <h3 key={location._id} id={location._id}>{location.name}</h3>
                                 {location.stock.map(item => {
                                     return (
                                         <p key={item.item._id}>{item.item.name}: {item.count} {item.item.countBy}</p>
