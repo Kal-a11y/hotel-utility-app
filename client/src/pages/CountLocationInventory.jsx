@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { COUNT_INVENTORY, GET_ITEMS } from '../utils/API';
+import { COUNT_INVENTORY, GET_ITEMS, GET_SINGLE_LOCATION } from '../utils/API';
 
 const CountLocationInventory = () => {
     const { locationId } = useParams();
     const [formState, setFormState] = useState([]);
     const [itemData, setItemData] = useState(null);
+    const [locationTitle, setLocationTitle] = useState('');
     let stockLength;
 
     useEffect(() => {
@@ -24,7 +25,18 @@ const CountLocationInventory = () => {
             }
         };
 
+        const getLocationData = async () => {
+            try {
+                const response = await GET_SINGLE_LOCATION(locationId);
+                const data = await response.json();
+                setLocationTitle(data.name);
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
         getItemData();
+        getLocationData();
     }, [stockLength]);
 
     const handleInputChange = (event) => {
@@ -57,6 +69,7 @@ const CountLocationInventory = () => {
     return (
         <div>
             <h1>Count inventory</h1>
+            <h2>{locationTitle}</h2>
             {itemData && (
                 <form onSubmit={handleFormSubmit}>
                     {itemData.map((item) => (
